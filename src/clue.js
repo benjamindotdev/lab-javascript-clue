@@ -174,4 +174,30 @@ const revealMystery = (envelope) => {
   return `${suspect.firstName} ${suspect.lastName} killed Mr. Boddy using the ${weapon.name} in the ${room.name}!`;
 };
 
-console.log(revealMystery(pickMystery()));
+const guess = {
+  suspect: "",
+  weapon: "",
+  room: "",
+};
+
+const handleClick = (element) => {
+  const { name, className } = element;
+  if (className === "suspect") {
+    guess.suspect = name;
+  } else if (className === "weapon") {
+    guess.weapon = name;
+  } else if (className === "room") {
+    guess.room = name;
+  }
+
+  if (guess.suspect && guess.weapon && guess.room) {
+    const envelope = {
+      suspect: suspectsArray.find(
+        (suspect) => suspect.firstName === guess.suspect
+      ),
+      weapon: weaponsArray.find((weapon) => weapon.name === guess.weapon),
+      room: roomsArray.find((room) => room.name === guess.room),
+    };
+    alert(revealMystery(envelope));
+  }
+};
